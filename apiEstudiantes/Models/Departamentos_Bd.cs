@@ -12,5 +12,7 @@ namespace apiCompras.Models
         public int Id_Departamento { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
+
+        public List<Orden_Compra_Bd> Ordenes_Compras { get; set; }
     }
 }

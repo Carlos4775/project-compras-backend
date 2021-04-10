@@ -38,7 +38,7 @@ namespace apiCompras.Controllers
         {
             try
             {
-                var gestor = context.Proveedores.FirstOrDefault(g => g.Id_Proveedores == id);
+                var gestor = context.Proveedores.FirstOrDefault(g => g.Id_Proveedor == id);
                 return Ok(gestor);
             }
             catch (Exception ex)
@@ -55,7 +55,7 @@ namespace apiCompras.Controllers
             {
                 context.Proveedores.Add(gestor);
                 context.SaveChanges();
-                return CreatedAtRoute("GetGestor", new { id = gestor.Id_Proveedores }, gestor);
+                return CreatedAtRoute("GetGestor", new { id = gestor.Id_Proveedor }, gestor);
             }
             catch (Exception ex)
             {
@@ -69,11 +69,11 @@ namespace apiCompras.Controllers
         {
             try
             {
-                if (gestor.Id_Proveedores == id)
+                if (gestor.Id_Proveedor == id)
                 {
                     context.Entry(gestor).State = EntityState.Modified;
                     context.SaveChanges();
-                    return CreatedAtRoute("GetGestor", new { id = gestor.Id_Proveedores }, gestor);
+                    return CreatedAtRoute("GetGestor", new { id = gestor.Id_Proveedor }, gestor);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace apiCompras.Controllers
         {
             try
             {
-                var gestor = context.Proveedores.FirstOrDefault(g => g.Id_Proveedores == id);
+                var gestor = context.Proveedores.FirstOrDefault(g => g.Id_Proveedor == id);
                 if (gestor != null)
                 {
                     context.Proveedores.Remove(gestor);

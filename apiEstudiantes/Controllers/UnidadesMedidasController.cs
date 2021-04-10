@@ -25,7 +25,7 @@ namespace apiCompras.Controllers
         {
             try
             {
-                return Ok(context.Unidades_Medida.ToList());
+                return Ok(context.Unidades_Medidas.ToList());
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace apiCompras.Controllers
         {
             try
             {
-                var gestor = context.Unidades_Medida.FirstOrDefault(g => g.Id_Unidad_Medida == id);
+                var gestor = context.Unidades_Medidas.FirstOrDefault(g => g.Id_Unidad_Medida == id);
                 return Ok(gestor);
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace apiCompras.Controllers
         {
             try
             {
-                context.Unidades_Medida.Add(gestor);
+                context.Unidades_Medidas.Add(gestor);
                 context.SaveChanges();
                 return CreatedAtRoute("GetGestor", new { id = gestor.Id_Unidad_Medida }, gestor);
             }
@@ -94,10 +94,10 @@ namespace apiCompras.Controllers
         {
             try
             {
-                var gestor = context.Unidades_Medida.FirstOrDefault(g => g.Id_Unidad_Medida == id);
+                var gestor = context.Unidades_Medidas.FirstOrDefault(g => g.Id_Unidad_Medida == id);
                 if (gestor != null)
                 {
-                    context.Unidades_Medida.Remove(gestor);
+                    context.Unidades_Medidas.Remove(gestor);
                     context.SaveChanges();
                     return Ok(id);
                 }
