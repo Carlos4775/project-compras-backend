@@ -13,7 +13,6 @@ namespace apiCompras.Context
         {
 
         }
-        public DbSet<Asientos_Contables_Bd> Asientos_Contables { get; set; }
         public DbSet<Departamentos_Bd> Departamentos { get; set; }
         public DbSet<Articulos_Bd> Articulos { get; set; }
         public DbSet<Unidades_Medida_Bd> Unidades_Medidas { get; set; }
@@ -26,11 +25,6 @@ namespace apiCompras.Context
                 .HasOne(p => p.Unidad_Medida)
                 .WithMany(b => b.Articulos)
                 .HasForeignKey(p => p.Id_Unidad_Medida);
-
-            modelBuilder.Entity<Asientos_Contables_Bd>()
-                .HasOne(p => p.Orden_Compra)
-                .WithMany(b => b.Asientos_Contables)
-                .HasForeignKey(p => p.Id_Orden_Compra);
 
             modelBuilder.Entity<Orden_Compra_Bd>()
                 .HasOne(p => p.Articulo)

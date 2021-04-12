@@ -14,6 +14,8 @@ namespace apiCompras.Models
         public bool Estado { get; set; }
         public int Cantidad { get; set; }
         public decimal Costo_Unitario { get; set; }
+        public decimal Monto { get; set; }
+        public int Id_Asiento { get; set; }
         public int Id_Articulo { get; set; }
         public virtual Articulos_Bd Articulo { get; set; }
         public int Id_Unidad_Medida { get; set; }
@@ -22,6 +24,5 @@ namespace apiCompras.Models
         public virtual Proveedores_Bd Proveedor { get; set; }
         public int Id_Departamento { get; set; }
         public virtual Departamentos_Bd Departamento { get; set; }
-        public List<Asientos_Contables_Bd> Asientos_Contables { get; set; }
     }
 }
