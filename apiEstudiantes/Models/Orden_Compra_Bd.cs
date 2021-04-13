@@ -15,7 +15,7 @@ namespace apiCompras.Models
         public int Cantidad { get; set; }
         public decimal Costo_Unitario { get; set; }
         public decimal Monto { get; set; }
-        public int Id_Asiento { get; set; }
+        public  int? Id_Asiento { get; set; }
         public int Id_Articulo { get; set; }
         public virtual Articulos_Bd Articulo { get; set; }
         public int Id_Unidad_Medida { get; set; }

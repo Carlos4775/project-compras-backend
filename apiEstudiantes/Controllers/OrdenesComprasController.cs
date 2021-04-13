@@ -35,6 +35,31 @@ namespace apiCompras.Controllers
             }
         }
 
+        // GET api/<OrdenesComprasController>/2021-01-25/2021-02-25
+        [HttpGet("{startDate}/{endDate}")]
+        public ActionResult GetPurchaseOrders(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                //var gestor = context.Orden_Compra.Where(o => o.Fecha_Orden >= startDate && o.Fecha_Orden <= endDate && o.Id_Asiento == null).ToList();
+                var gestor = context.Orden_Compra.Select(x => new { numero_orden = x.No_Orden,
+                    fecha = x.Fecha_Orden,
+                    id_asiento = x.Id_Asiento,
+                    monto_orden = x.Monto
+                }).Where(o => o.fecha >= startDate && o.fecha <= endDate && o.id_asiento == null).ToList();
+
+                var monto = context.Orden_Compra.Where(o => o.Fecha_Orden >= startDate && o.Fecha_Orden <= endDate && o.Id_Asiento == null).Sum(x => x.Monto);
+
+                return new JsonResult(new { ordenes_compras = gestor, monto_total = monto});
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         // GET api/<OrdenesComprasController>/5
         [HttpGet("{id}")]
         public ActionResult Get(int id)
