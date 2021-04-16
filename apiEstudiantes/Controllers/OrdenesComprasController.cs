@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using apiCompras.Context;
+﻿using apiCompras.Context;
 using apiCompras.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,8 +39,9 @@ namespace apiCompras.Controllers
         {
             try
             {
-                //var gestor = context.Orden_Compra.Where(o => o.Fecha_Orden >= startDate && o.Fecha_Orden <= endDate && o.Id_Asiento == null).ToList();
-                var gestor = context.Orden_Compra.Select(x => new { numero_orden = x.No_Orden,
+                var gestor = context.Orden_Compra.Select(x => new
+                {
+                    numero_orden = x.No_Orden,
                     fecha = x.Fecha_Orden,
                     id_asiento = x.Id_Asiento,
                     monto_orden = x.Monto
@@ -50,7 +49,7 @@ namespace apiCompras.Controllers
 
                 var monto = context.Orden_Compra.Where(o => o.Fecha_Orden >= startDate && o.Fecha_Orden <= endDate && o.Id_Asiento == null).Sum(x => x.Monto);
 
-                return new JsonResult(new { ordenes_compras = gestor, monto_total = monto});
+                return new JsonResult(new { ordenes_compras = gestor, monto_total = monto });
             }
             catch (Exception ex)
             {
@@ -84,6 +83,34 @@ namespace apiCompras.Controllers
                 context.Orden_Compra.Add(gestor);
                 context.SaveChanges();
                 return CreatedAtRoute("GetGestor", new { id = gestor.Id_Orden_Compra }, gestor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        // PUT api/<OrdenesComprasController>/2021-01-25/2021-02-25/1
+        [HttpPut("{id}/{startDate}/{endDate}")]
+        public ActionResult SetAccountingSeat(DateTime startDate, DateTime endDate, int id)
+        {
+            try
+            {
+                var gestor = context.Orden_Compra.Where(o => o.Fecha_Orden >= startDate && o.Fecha_Orden <= endDate && o.Id_Asiento == null).ToList();
+
+                foreach (var item in gestor)
+                {
+                    if (item.Id_Asiento == null)
+                    {
+                        item.Id_Asiento = id;
+                    }
+                }
+
+                context.SaveChanges();
+
+                return Ok();
+
             }
             catch (Exception ex)
             {
