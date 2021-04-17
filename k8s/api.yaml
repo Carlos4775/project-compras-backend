@@ -53,6 +53,6 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/helxdev/api-compras:latest
+          image: ghcr.io/helxdev/api-compras:$GITHUB_SHA
           ports:
             - containerPort: 80
