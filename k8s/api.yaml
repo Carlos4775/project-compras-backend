@@ -21,7 +21,7 @@ metadata:
 spec:
   tls:
     - hosts:
-      - api-compras.projects.helx.dev
+        - api-compras.projects.helx.dev
       secretName: api-tls
   rules:
     - host: api-compras.projects.helx.dev
@@ -53,6 +53,6 @@ spec:
     spec:
       containers:
         - name: api
-          image: ghcr.io/helxdev/api-compras:1
+          image: ghcr.io/helxdev/api-compras:latest
           ports:
             - containerPort: 80
