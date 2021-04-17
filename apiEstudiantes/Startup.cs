@@ -37,7 +37,7 @@ namespace apiCompras
         {
             app.UseCors(options =>
             {
-                options.WithOrigins("http://localhost:3000");
+                options.WithOrigins("*");
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
                 options.AllowAnyOrigin();

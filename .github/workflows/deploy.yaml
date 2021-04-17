@@ -1,0 +1,24 @@
+name: Deploy to Helx Server
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying
+        uses: appleboy/ssh-action@master
+        with:
+          host: s1.srvrs.msanchez.dev
+          username: root
+          key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+            QyNTUxOQAAACDTisbQAmSlhLmwKk5kYLNzqUQgBKRfQwtgvnzCLCv2FgAAAJCSWlMgklpT
+            IAAAAAtzc2gtZWQyNTUxOQAAACDTisbQAmSlhLmwKk5kYLNzqUQgBKRfQwtgvnzCLCv2Fg
+            AAAEAQohrazwuqbBtmoGdmEtYnpIYbggQDWIzL0op+xijEEtOKxtACZKWEubAqTmRgs3Op
+            RCAEpF9DC2C+fMIsK/YWAAAAB2dpdC1zc2gBAgMEBQY=
+            -----END OPENSSH PRIVATE KEY-----
+          port: 22
