@@ -1,0 +1,82 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  labels:
+    app: database-compras
+spec:
+  ports:
+    - port: 1433
+  selector:
+    app: database-compras
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-database
+  labels:
+    app: database-compras
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: do-block-storage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  labels:
+    app: database-compras
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-compras
+  template:
+    metadata:
+      labels:
+        app: database-compras
+    spec:
+      containers:
+        - name: database
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          command:
+            [
+              "sh",
+              "-c",
+              "/opt/mssql/bin/sqlservr & until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P BLsLH5yBg7a34hKEnlGBzzPSp1EwUXG0 -i /repo/setup.sql; do sleep 1; done",
+            ]
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              value: BLsLH5yBg7a34hKEnlGBzzPSp1EwUXG0
+          volumeMounts:
+            - mountPath: "/var/opt/mssql"
+              name: database
+            - mountPath: /repo
+              name: repo
+          ports:
+            - containerPort: 1433
+          securityContext:
+            runAsUser: 0
+      initContainers:
+        - name: clone-repo
+          image: alpine/git
+          command:
+            - git
+            - clone
+            - https://github.com/Carlos4775/project-compras-backend.git
+            - /repo
+          volumeMounts:
+            - mountPath: /repo
+              name: repo
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: pvc-database
+        - name: repo
+          emptyDir: {}
