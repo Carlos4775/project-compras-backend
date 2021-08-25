@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace apiCompras.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class DepartamentosController : Controller
     {
         private readonly AppDbContext context;

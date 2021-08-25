@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/api-compras-resource/apis/apicompras",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apicomprasdbserver/databases/apiCompras_db",
+      "type": "mssql.azure",
+      "connectionId": "Conexion",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
